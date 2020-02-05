@@ -1,0 +1,16 @@
+######################
+# Queue single assemblies with SPAdes with metagenomic option on WEI GLBRC
+# Elizabeth McDaniel
+######################
+
+request_cpus = 16
+request_memory = 250GB
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/meta_assembly.sh
+arguments = $(output) $(r1) $(r2)
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(sample)_assemble.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(sample)_assemble.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(sample)_assemble.log
+
+queue output,r1,r2 from metadata/POS-meta-assemblies-queue.txt
