@@ -5,13 +5,13 @@
 ##################
 
 request_cpus = 4
-request_memory = 50GB
+request_memory = 15GB
 
 executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/fastp_filter.sh
 arguments = $(sample) $(r1) $(r2) $(out1) $(out2)
 
-output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(sample)_filter.out
-error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(sample)_filter.err
-log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(sample)_filter.log
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_$(sample)_filter.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_$(sample)_filter.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_$(sample)_filter.log
 
 queue sample,r1,r2,out1,out2 from metadata/POS-filtering-queue-samples.txt

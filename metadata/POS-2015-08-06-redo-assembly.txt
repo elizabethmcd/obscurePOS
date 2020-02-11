@@ -1,0 +1,1 @@
+POS-2015-08-06-redo-assembly	/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/cleaned_fastqs/redo/POS-2015-08-06-R1.redo.fastq	/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/cleaned_fastqs/redo/POS-2015-08-06-R2.redo.fastq

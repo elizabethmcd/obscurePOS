@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash 
 
 ######################
 # Queue single metagenomic assemblies with SPAdes from list
@@ -18,4 +18,4 @@ outdir=/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/
 SPADESPATH=/opt/bifxapps/SPAdes-3.9.0-Linux/bin/
 
 # Run spades
-/opt/bifxapps/bin/python3.4 $SPADESPATH/spades.py -k 21,33,55,77,99,127 -1 $metaPath1 -2 $metaPath2 -o $outdir/$sample
+/opt/bifxapps/bin/python3.4 $SPADESPATH/spades.py -t 20 -m 500 -k 21,33,55,77,99,127 -1 $metaPath1 -2 $metaPath2 -o $outdir/$sample

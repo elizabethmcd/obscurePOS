@@ -1,0 +1,17 @@
+##################
+# metabat_binning.sub
+# Submission script for binning on GLBRC with MetaBat
+# Elizabeth McDaniel
+##################
+
+request_cpus = 4
+request_memory = 5GB
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/binning-metabat.sh
+arguments = $(ASSEMB)
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_binning.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_binning.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_binning.log
+
+queue ASSEMB from /home/GLBRCORG/emcdaniel/obscurePOS/metadata/obscurePOS-binning.txt

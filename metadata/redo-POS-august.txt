@@ -1,0 +1,1 @@
+POS-2015-08-06	/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/raw_fastqs/TB_8_6_ACAGTG_L001_R1_001.fastq	/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/raw_fastqs/TB_8_6_ACAGTG_L001_R2_001.fastq	/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/cleaned_fastqs/POS-2015-08-06-R1.redo.fastq	/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/cleaned_fastqs/POS-2015-08-06-R2.redo.fastq

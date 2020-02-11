@@ -1,3 +1,5 @@
+#! /bin/bash 
+
 ######################
 # Queue single metagenomic assemblies with SPAdes from list
 # Elizabeth McDaniel

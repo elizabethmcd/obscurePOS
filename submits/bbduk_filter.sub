@@ -1,0 +1,17 @@
+##################
+# fastp_filter.sub 
+# Submission script for filtering metagenomic sequences with fastp
+# Elizabeth McDaniel
+##################
+
+request_cpus = 4
+request_memory = 10GB
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/bbduk_filter.sh
+arguments = $(sample) $(r1) $(r2) $(out1) $(out2)
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(sample)_bbfilter.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(sample)_bbfilter.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(sample)_bbfilter.log
+
+queue sample,r1,r2,out1,out2 from metadata/POS-filtering-queue-samples.txt

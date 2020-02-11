@@ -3,14 +3,14 @@
 # Elizabeth McDaniel
 ######################
 
-request_cpus = 16
-request_memory = 500GB
+request_cpus = 24
+request_memory = 600GB
 
 executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/single_assembly.sh
-arguments = $(r1) $(r2)
+arguments = $(output) $(r1) $(r2)
 
 output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(sample)_assemble.out
 error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(sample)_assemble.err
 log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(sample)_assemble.log
 
-queue r1,r2 from metadata/POS-assemblies-queue.txt
+queue output,r1,r2 from metadata/POS-assemblies-queue.txt
