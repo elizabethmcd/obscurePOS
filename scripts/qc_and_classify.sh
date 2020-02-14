@@ -17,14 +17,14 @@ mkdir checkm_stats
 checkm lineage_wf -x .fa all_bins/ checkm_stats
 checkm qa checkm_stats/lineage.ms checkm_stats/ -o 2 -f checkm_stats/checkm.out --tab_table
 cd checkm_stats
-awk '{print $1"\t"$7"\t"$8"\t"$10"\t"$13"\t"$20"\t"$24}' checkm.out > checkm_stats.tsv
+awk '{print $1"\t"$2"\t"$7"\t"$8"\t"$10"\t"$13"\t"$20"\t"$24}' checkm.out > checkm_stats.tsv
 
 # change headers to
-# bin_id	completeness	contamination	genome_size	contigs	gc	ORFs
+# bin_id    lineage	completeness	contamination	genome_size	contigs	gc	ORFs
 
 # Can feed into dRep with just the first 3 columns
 
-awk '{print $1".fa"","$2","$3}' mcfa_checkm_stats.tsv > drepInputStats
+awk '{print $1".fa"","$3","$4}' mcfa_checkm_stats.tsv > drepInputStats
 # change headers to
 # genome,completness,contamination
 source activate pipenv # with dRep installed
@@ -32,4 +32,15 @@ source activate pipenv # with dRep installed
 
 dRep dereplicate outputDir -g binDir/*.fa --genomeInfo checkmStats
 
+# To classify with GTDB further
+# on GLBRC use Ben P's installation of GTDB-tk
+export PATH=/home/GLBRCORG/bpeterson26/miniconda3/bin:$PATH
+unset PYTHONPATH
+source activate gtdbtk
+
+gtdbtk classify_wf \
+        --cpus 16 \
+        --extension fa \
+        --genome_dir good_bins/ \
+        --out_dir checkm_stats/GTDB
 
