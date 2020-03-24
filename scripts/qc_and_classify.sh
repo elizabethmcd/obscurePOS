@@ -46,4 +46,4 @@ gtdbtk classify_wf \
 
 # Combine checkm and gtdb results
 
-join -j1 -a1 -o1.1,1.2,2.2,2.3,2.4,2.5,2.6,2.7 <(sort -k1 gtdb-classfs.tsv) <(sort -k1 checkm-stats.tsv) | column -t
+join -j1 -a1 -o1.1,1.2,2.3,2.4,2.5,2.6,2.7 <(sort -k1 gtdb-classfs.tsv) <(sort -k1 checkm-stats.tsv) | column -t | awk '{print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7}' > all-stats.tsv
