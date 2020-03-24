@@ -44,3 +44,6 @@ gtdbtk classify_wf \
         --genome_dir good_bins/ \
         --out_dir checkm_stats/GTDB
 
+# Combine checkm and gtdb results
+
+join -j1 -a1 -o1.1,1.2,2.2,2.3,2.4,2.5,2.6,2.7 <(sort -k1 gtdb-classfs.tsv) <(sort -k1 checkm-stats.tsv) | column -t
