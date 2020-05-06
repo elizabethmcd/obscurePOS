@@ -14,4 +14,4 @@ output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_mapping.
 error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_mapping.err
 log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_mapping.log
 
-queue ref,meta,out from /home/GLBRCORG/emcdaniel/obscurePOS/metadata/obscurePOS-mapping-combos.txt
+queue ref,meta,out from /home/GLBRCORG/emcdaniel/obscurePOS/metadata/coassembly-euk-mapping.txt

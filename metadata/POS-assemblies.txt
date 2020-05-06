@@ -1,0 +1,7 @@
+/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/final_assemblies/POS2015-07-16-assembly-contigs.fasta
+/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/final_assemblies/POS2015-07-16-assembly-euk-contigs.fasta
+/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/final_assemblies/POS2015-07-24-assembly-contigs.fasta
+/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/final_assemblies/POS2015-07-24-assembly-euk-contigs.fasta
+/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/final_assemblies/POS2015-08-06-assembly-contigs.fasta
+/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/final_assemblies/POS2015-08-06-assembly-euk-contigs.fasta
+/home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/final_assemblies/POS-coassembly-contigs.fasta

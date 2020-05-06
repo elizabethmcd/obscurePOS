@@ -14,4 +14,4 @@ output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_binning.
 error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_binning.err
 log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_binning.log
 
-queue ASSEMB from /home/GLBRCORG/emcdaniel/obscurePOS/metadata/obscurePOS-binning.txt
+queue ASSEMB from /home/GLBRCORG/emcdaniel/obscurePOS/metadata/POS-assemblies.txt
