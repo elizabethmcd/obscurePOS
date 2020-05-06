@@ -1,4 +1,7 @@
+.Rproj
+results/
 .Rhistory
 .RData
 raw_data/
 .DS_Store
+.Rproj.user
