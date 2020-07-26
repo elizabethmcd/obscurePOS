@@ -31,3 +31,14 @@ otu_pos <- amp_heatmap(pos_amp, tax_aggregate = "OTU", tax_show=5, plot_values =
 
 ggsave(plot=otu_pos, file="~/Desktop/pos_otu_heatmap.png", width=15, height=5, units=c('cm'))
 
+# 18S otus
+
+pos_18 <- read.csv("metadata/POS_18S_table.csv")
+
+pos_18_cleaned <- pos_18 %>% mutate(Taxonomy = str_replace_all(string=Taxonomy, pattern="\\(\\d*\\)", replacement="")) %>% 
+  mutate(Taxonomy = str_replace_all(string=Taxonomy, pattern=";$", replacement="")) %>% 
+  separate(Taxonomy, into=c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus"), sep=";") %>% 
+  select(-Size) %>% 
+  select(OTU, S1, S2, S3, S4, S5, S6, S7, Kingdom, Phylum, Class, Order, Family, Genus)
+
+fungi <- pos_18_cleaned %>% filter(Order == "Fungi") %>% group_by(Family)
