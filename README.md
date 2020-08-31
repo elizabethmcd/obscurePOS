@@ -1,3 +1,3 @@
-# Metagenomics of Photosynthetic Feast-Famine Reactors and Obscuribacter Metabolic Reconstruction
+# Genome-Resolved Metagenomics of Photosynthetic Feast-Famine Reactors 
 
-This repository contains code and workflows for genome-resolved metagenomic analysis of 3 samples taken from an EBPR reactor in 2015 operating photosynthetically. We specifically focus on putatively photosynthetic-related MAGs and a metabolic reconsruction of the putative PAO Obscuribacter phosphatis. 
+This repository contains code and workflows for genome-resolved metagenomic analysis of 3 samples taken from an EBPR reactor in 2015 operating photosynthetically.

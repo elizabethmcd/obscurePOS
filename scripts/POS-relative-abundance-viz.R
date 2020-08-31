@@ -46,7 +46,8 @@ top_10 <- pos_table %>%
 
 top_ts <- pos_melt %>% filter(code %in% top_10)
 
-top_heatmap <- ggplot(top_ts, aes(x=code, y=fct_rev(date), fill=value)) + geom_tile(color="white") + scale_fill_viridis(option="viridis", alpha=1, begin=0, end=1, direction=-1)
+top_heatmap <- ggplot(top_ts, aes(x=code, y=fct_rev(date), fill=value)) + geom_tile(color="white") + scale_fill_viridis(option="viridis", alpha=1, begin=0, end=1, direction=-1) + theme(axis.text.x= element_text(angle=85, hjust=1))
+top_heatmap
 
 # save raw figures
 
