@@ -21,7 +21,7 @@ cd /home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/finalBins/strains
 # Called genes from the combined genome file with Prodigal - this is the genes file
 # Individually queue by each genome to calculate individual microdiversity metrics by genome, provide scaffold to bin (STB) file for this 
 
-inStrain profile $strainsPath/POS-2015-07-16-mapping.sorted.bam $genomePath/$genome.fa -o results/$code.IS -p 8 -g $strains/all-all-POS-genomes-genes.fna -s POS-scaffolds-to-bins.stb
+inStrain profile $strainsPath/POS-2015-07-16-mapping.sorted.bam $genomePath/$genome.fa -o results/$code.IS -p 8 -g $strainsPath/all-POS-genomes-genes.fna -s POS-scaffolds-to-bins.stb
 
 
 
