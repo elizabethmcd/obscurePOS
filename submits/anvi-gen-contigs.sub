@@ -1,0 +1,12 @@
+##############################
+# anvi-gen-contigs-db submit
+##############################
+
+universe = vanilla
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/anvio-make-contigs-db-executable.sh
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_anvi-contigs.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_anvi-contigs.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_anvi-contigs.log
+
+queue

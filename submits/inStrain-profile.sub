@@ -1,0 +1,16 @@
+##############################
+# inStrain profile queue
+##############################
+
+request_cpus = 10
+request_memory = 100GB
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/inStrain-profile-queue.sh
+arguments = $(genome) $(code)
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_inStrain_profile.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_inStrain_profile.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_inStrain_profile.log
+
+
+queue genome,code from metadata/POS-MAG-codes.txt

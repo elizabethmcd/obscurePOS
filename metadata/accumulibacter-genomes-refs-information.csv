@@ -1,0 +1,40 @@
+﻿genome,clade,name,code
+2687453699,IA,Candidatus Accumulibacter UW3,UW3
+GCA_0005850751,IA,Candidatus Accumulibacter sp BA-93,BA-93
+GCA_0024554351,IA,Candidatus Accumulibacter phosphatis UBA6658,UBA6658
+GCA_0094678551,IA,Candidatus Accumulibacter phosphatis CANDO_1,CANDO_1
+spades-bin.32,IA,Candidatus Accumulibacter UW4,UW4
+POS2015-07-24-bin.54,IA,Candidatus Accumulibacter,UW8-POB
+GCA_0005850551,IB,Candidatus Accumulibacter sp BA-92,BA-92
+GCA_0009874451,IB,Candidatus Accumulibacter phosphatis HKU1,HKU1
+GCA_0023522651,IB,Candidatus Accumulibacter phosphatis UBA2783,UBA2783
+GCA_0033322651,IC,Candidatus Accumulibacter phosphatis UW-LDO,UW-LDO
+2767802316,IIA,Candidatus Accumulibacter UW5,UW5
+GCA_0000241651,IIA,Candidatus Accumulibacter phosphatis UW1,UW1
+POS2015-07-16-bin.58,IIA,Candidatus Accumulibacter,UW9-POB
+POS2015-08-06-bin.38,IIB,Candidatus Accumulibacter,UW10-POB
+2767802455,IIC,Candidatus Accumulibacter UW6,UW6
+GCA_0005849552,IIC,Candidatus Accumulibacter sp SK-01,SK-01
+GCA_0005849752,IIC,Candidatus Accumulibacter sp SK-02,SK-02
+GCA_0005850352,IIC,Candidatus Accumulibacter sp BA-91,BA-91
+GCA_0009873951,IIC,Candidatus Accumulibacter phosphatis HKU2,HKU2
+GCA_0024254051,IIC,Candidatus Accumulibacter phosphatis UBA5574,UBA5574
+GCA_0058895751,IIC,Candidatus Accumulibacter phosphatis Bin19,BIN19
+coassembly-bin.185,IIC,Candidatus Accumulibacter,UW11-POB
+coassembly-bin.12,IID,Candidatus Accumulibacter,UW12-POB
+GCA_0005849951,IIF,Candidatus Accumulibacter sp SK-11,SK-11
+GCA_0005850151,IIF,Candidatus Accumulibacter sp SK-12,SK-12
+GCA_0005850951,IIF,Candidatus Accumulibacter sp BA-94,BA-94
+GCA_0023450251,IIF,Candidatus Accumulibacter phosphatis UBA2327,UBA2327
+GCA_0023452851,IIF,Candidatus Accumulibacter phosphatis UBA2315,UBA2315
+GCA_0024338451,IIF,Candidatus Accumulibacter phosphatis UBA6585,UBA6585
+GCA_0034876851,IIF,Candidatus Accumulibacter sp UBA8770,UBA8770
+GCA_0035356351,IIF,Candidatus Accumulibacter sp UBA11070,UBA11070
+GCA_0035422351,IIF,Candidatus Accumulibacter sp UBA9001,UBA9001
+GCA_0055240451,IIF,Candidatus Accumulibacter sp SCELSE-1,SCELSE-1
+Reactor4-bin4,IIF,Candidatus Accumulibacter UW7,UW7
+POS2015-07-24-bin.16,IIF,Candidatus Accumulibacter,UW13-POB
+GCA_0018977451,un,Candidatus Accumulibacter sp 66-26,66-26
+GCA_0023047851,un,Candidatus Accumulibacter sp UBA704,UBA704
+GCA_9000899551,un,Candidatus Accumulibacter aalborgensis,UN
+GCA_0035384951,un,Candidatus Accumulibacter sp UBA11064,UBA11064

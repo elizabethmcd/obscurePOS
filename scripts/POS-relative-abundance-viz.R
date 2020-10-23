@@ -33,6 +33,10 @@ write.csv(pos_table, "results/stats/POS-MAGs-table.csv", quote=FALSE, row.names 
 pos_names <- read.csv("results/stats/POS-MAGs-table-highest-classf.csv")
 pos_names$avg <- (pos_names$abund_2015.07.16 + pos_names$abund_2015.07.24 + pos_names$abund_2015.08.06) / 3
 avg_abundance <- pos_names %>% ggplot(aes(x=reorder(code, -avg), y=avg, fill=highest_classf)) + geom_col() + theme_classic() + scale_fill_brewer(palette="Paired") + theme(axis.text.x= element_text(angle=85, hjust=1))
+top25_pos <- pos_names %>% arrange(desc(avg)) %>% top_n(25)
+top30_pos <- pos_names %>% arrange(desc(avg)) %>% top_n(30)
+top25_pos %>% ggplot(aes(x=reorder(code, -avg), y=avg, fill=highest_classf)) + geom_col() + theme_classic() + scale_fill_brewer(palette="Dark2") + theme(axis.text.x= element_text(angle=85, hjust=1))
+top30_pos %>% ggplot(aes(x=reorder(code, -avg), y=avg, fill=highest_classf)) + geom_col() + theme_classic() + scale_fill_brewer(palette="Dark2") + theme(axis.text.x= element_text(angle=85, hjust=1))
 
 # melted dataset for heatmap of specific taxa
 pos_counts <- pos_table %>% select(code, `abund_2015-07-16`, `abund_2015-07-24`, `abund_2015-08-06`)
@@ -46,7 +50,7 @@ top_10 <- pos_table %>%
 
 top_ts <- pos_melt %>% filter(code %in% top_10)
 
-top_heatmap <- ggplot(top_ts, aes(x=code, y=fct_rev(date), fill=value)) + geom_tile(color="white") + scale_fill_viridis(option="viridis", alpha=1, begin=0, end=1, direction=-1) + theme(axis.text.x= element_text(angle=85, hjust=1))
+top_heatmap <- ggplot(top_ts, aes(x=code, y=fct_rev(date), fill=value)) + geom_tile(color="white") + scale_fill_viridis(option="magma", alpha=1, begin=0, end=1, direction=-1) + theme(axis.text.x= element_text(angle=85, hjust=1))
 top_heatmap
 
 # save raw figures

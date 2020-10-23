@@ -1,0 +1,14 @@
+##############################
+# Kaiju Databases Prep
+##############################
+
+request_cpus = 10
+request_memory = 500GB
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/scripts/kaiju-databases-prep.sh
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_kaiju.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_kaiju.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_kaiju.log
+
+queue
