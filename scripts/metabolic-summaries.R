@@ -113,5 +113,6 @@ bin_order <- c('ACIDO1',
 
 traits.melted <- melt(final_table, id.vars="Code") %>% mutate(Code=factor(Code), Code=factor(Code, levels=c(bin_order)))
 
-traits.melted %>% ggplot(aes(x=Code, y=fct_rev(variable), fill=value)) + geom_tile(color="black", size=0.5, aes(width=1, height=1)) + coord_fixed() + theme(axis.text.x.bottom = element_text(angle=80, hjust=0.95, face="bold"), axis.text.y.left = element_text(face="italic"), axis.ticks.y=element_blank())
-  
+heatmap <- traits.melted %>% ggplot(aes(x=Code, y=fct_rev(variable), fill=value)) + geom_tile(color="black", size=0.5, aes(width=1, height=1)) + coord_fixed() + theme(axis.text.x.bottom = element_text(angle=80, hjust=0.95, face="bold"), axis.text.y.left = element_text(face="italic"), axis.ticks.y=element_blank())
+
+ggsave("figs/metabolic-heatmap-summary.png", heatmap, width=25, height=15, units=c("cm"))  

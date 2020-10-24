@@ -1,0 +1,15 @@
+##############################
+# anvi-init-bam submit queue
+##############################
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/anvio-init-bam-queue.sh
+
+request_cpus = 4
+request_memory = 10GB
+arguments = $(bam) $(out)
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_anvi-bam.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_anvi-bam.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_anvi-bam.log
+
+queue bam,out from metadata/POS-mapping-files.txt
