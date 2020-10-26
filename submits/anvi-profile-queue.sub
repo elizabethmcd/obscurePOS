@@ -1,0 +1,15 @@
+##############################
+# anvi-profile submit queue
+##############################
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/anvio-profile-queue.sh
+
+request_cpus = 4
+request_memory = 10GB
+arguments = $(bam) $(sample)
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_anvi-profile.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_anvi-profile.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_anvi-profile.log
+
+queue bam,sample from metadata/POS-anvi-profiling-samples.txt
