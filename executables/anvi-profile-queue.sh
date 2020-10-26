@@ -11,9 +11,9 @@ cd /home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/coassembly/anvio_b
 
 # arguments
 bam=$1
-sample=$2
+name=$2
 
-anvi-profile -i $bam -c contigs.db --output-dir $sample --sample-name $sample
+anvi-profile -i $bam -c contigs.db --output-dir $name --sample-name $name
 
 # exit environment
 conda deactivate
