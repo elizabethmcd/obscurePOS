@@ -1,0 +1,14 @@
+##############################
+# CONCOCT Binning Job
+##############################
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/concoct_job.sh
+
+request_cpus = 4
+request_memory = 50GB
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_concoct.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_concoct.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_concoct.log
+
+queue

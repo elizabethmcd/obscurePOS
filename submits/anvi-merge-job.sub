@@ -1,0 +1,14 @@
+##############################
+# anvi-merge large job
+##############################
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/anvio-merge-job.sh
+
+request_cpus = 10
+request_memory = 500GB
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_anvi-merge.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_anvi-merge.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_anvi-merge.log
+
+queue
