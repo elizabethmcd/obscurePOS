@@ -1,0 +1,15 @@
+##############################
+# bowtie2 kaiju submit queue
+##############################
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/bowtie2-kaiju-assembly.sh
+
+request_cpus = 8
+request_memory = 50GB
+arguments = $(fastq) $(name)
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_bowtie2mapping.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_bowtie2mapping.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_bowtie2mapping.log
+
+queue fastq,name from metadata/POS-fastq-names.txt

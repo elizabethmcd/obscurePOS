@@ -1,0 +1,15 @@
+##############################
+# anvi-gen-contigs-db eukrep submit
+##############################
+
+universe = vanilla
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/eukrep-anvio-make-contigs-db.sh
+
+request_cpus = 4
+request_memory = 10GB
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_anvi-contigs.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_anvi-contigs.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_anvi-contigs.log
+
+queue

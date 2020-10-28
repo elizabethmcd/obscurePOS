@@ -4,19 +4,22 @@ Steps for this workflow followed the [tutorial](http://merenlab.org/2016/06/22/a
 
 These steps were mostly done to manually bin eukaryotic bins from a photobioreactor ecosystem. Bacterial bins were automatically clustered using MetaBAT and assessed with CheckM and manually checked for uniform coverage. In addition to manual binning, I will also be performing binning with CONCOCT to attempt to extract eukaryotic bins, since binning algorithms like MaxBin and MetaBAT are biased towards binning prokaryotic sequences. 
 
-## Map metagenomic reads to the assembly
+## Binning from the full coassembly
+Previously tried to bin with anvi'o from the full coassembly, and below are general steps/submits. Below are ways to subset the coassembly for eukaryotic contigs and bin from those. 
+
+### Map metagenomic reads to the assembly
 
 Map short metagenomic reads to the coassembly (this assumes you already have assembled contigs with metaSPAdes or some similar program) with bowtie2. The relevant submit job is `bowtie2-coassembly-queue.sub` where the reads will be mapped with bowtie2 (this assumes you have already made an index with `bowtie2-build`) and convert to BAM files, sort and index with Samtools. 
 
-## Create a contigs database
+### Create a contigs database
 
 Create a contigs database from your assembly collection of contigs FASTA file. Submit file is `anvi-gen-contigs.sub`. 
 
-## Run HMMs on your contigs database
+### Run HMMs on your contigs database
 
 The default HMM collections are specifically for bacterial and archaeal markers, but downstream you can import your own HMM collections, such as eukaryotic markers from the BUSCO collection. I did not import my own HMM collections for now because I will probably assess individual bins with the BUSCO collection outside of Anvi'o once I have the clusters. 
 
-## Import taxonomy 
+### Import taxonomy 
 
 Since I am specifically looking to bin eukaryotic genomes with this workflow, I want to know ***a priori** what contigs are likely eukaryotic to then cluster into bins. I followed [this tutorial](http://merenlab.org/2016/06/18/importing-taxonomy/) to format Kaiju classifications correctly and import into my contigs DB. I already have Kaiju installed on GLBRC as well as the NCBI NR databases for bacterial, archaeal, fungal, and eukaryotic references downloaded and formatted. Briefly, you can pull down specific databases and format them with the kaiju `makeDB.sh` script (which now I know you can multi-thread, otherwise it will take forever). 
 
@@ -57,7 +60,7 @@ anvi-import-taxonomy-for-genes -i gene_calls_nr.names \
 
 Add the "just do it" flag to force it, and it will give you a check of what Anvi'o thinks the phylum names are from Kaiju. Make sure they are right before completing this step. 
 
-## Profile BAM files and Merge
+### Profile BAM files and Merge
 
 This assumes you already have sorted and indexed BAM files for each of your mapped samples to the coassembly. If not you can do it with samtools or with the anvi'o program `anvi-init-bam`, which corresponds to the `anvi-bam-init-queue.sub` submit file. Then profile each of your BAM files with `anvi-profile-queue.sub`. Then merge the profiles with `anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --enforce-hierarchical-clustering`. Hierarchical clustering has to be forced because the default clustering for number of splits is around 25,000, whereas there are about 270,000 splits for this contigs database, probably because it's a complex coassembly. This will need to be submitted to one of the larger nodes with more memory because the error thrown when just ran on scarcity-7 alone is: 
 
@@ -79,7 +82,77 @@ POS_Sample2: 1.00, POS_Sample3: 0.73
 
 So the second samples for 2015-07-24 mapped the best to the coassembly, the third in August the worst, and the first before the light switch so-so.  
 
-## View interactively on a server through SSH tunnel
+### View interactively on a server through SSH tunnel
 
 Follow [this tutorial](http://merenlab.org/2015/11/28/visualizing-from-a-server/) for running an SSH tunnel through the server to get anvi-interactive to work on your local host from the results on the server. 
+
+
+
+# Bin directly from classified Eukaryotic sequences
+
+The coassembly is somewhat unnecessarily large for my purposes since I've already binned out bacterial genomes and dont' need that information. Since I was going to go directly to the contigs classified as Eukaryotic for manual clustering within the anvi'o interface, I will go ahead and make things easier and just feed those specific contigs to Anvi'o for manual binning. Additionally, I will do this for CONCOCT since I don't want to feed through the other bacterial contigs/genomes as well. The two main approaches for classifying contigs and subsetting the larger coassembly are: 
+
+1. Subset with Eukrep
+2. Classify contigs with Kaiju and pull those specific contigs out
+
+THEN using these two subset assemblies of the coassembly: 
+
+1. Manually bin with Anvi'o
+2. Bin contigs with CONCOCT (can't use MaxBin or MetaBat because biased towards prokaryotic sequences)
+
+## Binning from EukRep Contigs
+
+### Make a contigs database
+
+Create an anvi'o contigs database. To start will leave the default split size since it's a smaller assembly with about 85,000 contigs.  I will then also skip the HMM step because that won't be very helpful by default since I will have to run the BUSCO eukaryotic/chlorophyta collection either by specifically importing into Anvi'o, or just taking specific clusters and running outside of Anvi'o. Submit file is `eukrep-anvio-contigs-db.sub`
+
+### Import taxonomy from Kaiju
+
+Rerun taxonomy to help with phylum-level and down classifications with the Eukaryotes. First get the sequences from the anvi'o contigs database: `anvi-get-sequences-for-gene-calls -c CONTIGS.db -o gene_calls.fa`. Call classifications with Kaiju, which might be insightful since the eukrep sorting "identified" more eukaryotic contigs than what was originally classified with Kaiju from the coassembly. 
+
+```
+kaiju -t /path/to/nodes.dmp \
+      -f /path/to/kaiju_db.fmi \
+      -i gene_calls.fa \
+      -o gene_calls_nr.out \
+      -z 16 \
+      -v
+```
+
+```
+addTaxonNames -t /path/to/nodes.dmp \
+              -n /path/to/names.dmp \
+              -i gene_calls_nr.out \
+              -o gene_calls_nr.names \
+              -r superkingdom,phylum,order,class,family,genus,species
+```
+
+```
+anvi-import-taxonomy-for-genes -i gene_calls_nr.names \
+                               -c contigs.db \
+                               -p kaiju --just-do-it
+```
+
+### Map to subset Eukrep assembly
+
+`eukrep-mapping.sub` job to map each sample to the subset coassembly of eukaryotic contigs 
+
+### Profile BAM Files and Merge
+
+
+
+
+## Binning from Kaiju Contigs
+
+### Subset contigs and Create Contigs DB 
+
+First subset the full coassembly for just contigs classified as eukaryotic based on Kaiju. This can be done with `seqtk`: `seqtk subseq ../coassembly_scaffolds.fasta eukaryotic-contigs.txt > coassembly_kaiju_euk.fasta`. Then use this new subset assembly to create a contigs database 
+
+### Import Kaiju classifications 
+
+Need to re-do the Kaiju classifications based on the gene calls made from the Anvi'o contigs DB. `anvi-get-sequences-for-gene-calls -c CONTIGS.db -o gene_calls.fa`. Get Kaiju classifications and import as described above. 
+
+### Map to subset Kaiju assembly 
+
+`kaiju-mapping.sub` job to map each sample to the subset coassembly of eukaryotic contigs. 
 
