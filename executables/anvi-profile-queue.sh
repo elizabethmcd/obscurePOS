@@ -7,7 +7,7 @@ unset $PYTHONPATH
 conda activate anvio-6.2
 
 # directory where data is
-cd /home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/coassembly/anvio_binning
+cd /home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/coassembly/kaiju_anvio_binning
 
 # arguments
 bam=$1

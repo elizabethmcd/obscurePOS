@@ -1,0 +1,15 @@
+##############################
+# anvi-run-hmms submit for curated BUSCO HMMs
+##############################
+
+universe = vanilla
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/kaiju-anvio-run-hmms.sh
+
+request_cpus = 6
+request_memory = 50GB
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_anvi-hmms.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_anvi-hmms.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_anvi-hmms.log
+
+queue

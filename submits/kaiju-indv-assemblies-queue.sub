@@ -1,0 +1,15 @@
+##############################
+# Kaiju Databases Prep
+##############################
+
+request_cpus = 10
+request_memory = 100GB
+
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/kaiju-indv-assemblies-queue.sh
+arguments = $(assembly) $(name)
+
+output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_kaiju.out
+error = /home/GLBRCORG/emcdaniel/obscurePOS/errs/$(Cluster)_$(Process)_kaiju.err
+log = /home/GLBRCORG/emcdaniel/obscurePOS/logs/$(Cluster)_$(Process)_kaiju.log
+
+queue assembly,name from metadata/POS-individual-assemblies.fasta

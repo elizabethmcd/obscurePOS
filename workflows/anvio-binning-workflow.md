@@ -100,9 +100,11 @@ THEN using these two subset assemblies of the coassembly:
 1. Manually bin with Anvi'o
 2. Bin contigs with CONCOCT (can't use MaxBin or MetaBat because biased towards prokaryotic sequences)
 
-## Binning from EukRep Contigs
+## Binning from EukRep and Kaiju Contigs
 
 ### Make a contigs database
+
+First subset the full coassembly for just contigs classified as eukaryotic based on Kaiju. This can be done with `seqtk`: `seqtk subseq ../coassembly_scaffolds.fasta eukaryotic-contigs.txt > coassembly_kaiju_euk.fasta`. Then use this new subset assembly to create a contigs database 
 
 Create an anvi'o contigs database. To start will leave the default split size since it's a smaller assembly with about 85,000 contigs.  I will then also skip the HMM step because that won't be very helpful by default since I will have to run the BUSCO eukaryotic/chlorophyta collection either by specifically importing into Anvi'o, or just taking specific clusters and running outside of Anvi'o. Submit file is `eukrep-anvio-contigs-db.sub`
 
@@ -133,26 +135,75 @@ anvi-import-taxonomy-for-genes -i gene_calls_nr.names \
                                -p kaiju --just-do-it
 ```
 
+Noticed that the taxonomy breakdown from Kaiju for the sorted EukRep contigs has a lot of Bacteria and Viruses, and fewer of what is actually classified as Eukaryotic contigs from what the original Kaiju coassembly had. Especially in terms of the Chlorophyta, only included ~3000 contigs, whereas Kaiju classified 16,000 contigs from the full coassembly as Chlorophyta. Will still try both, but seems have a lot less to work with in terms of the actual eukaryotic content from the EukRep subset assembly. 
+
 ### Map to subset Eukrep assembly
 
 `eukrep-mapping.sub` job to map each sample to the subset coassembly of eukaryotic contigs 
 
+
+### Add custom HMM collections 
+
+I pulled down the BUSCO HMM collections for eukaryota and chlorophyta, since of the Eukaryota there seems to be the most Chlorophyta by Kaiju estimates of the full coassembly (listed below). The eukaryota collection has 1,098 genes, and the Chlorophyta collection has 1,519 genes. I ran `anvi-run-hmms` for these databases, and for the kaiju assembly got 
+
+
 ### Profile BAM Files and Merge
 
+Profile with with submit job `anvi-profile-queue.sub` to profile the reads mapping from each sample to the subset coassembly. The cutoff for contigs if length less than 1,000 bp, which went from ~75,000 contigs to 25,000 contigs, and the split size is much smaller. Gets rid of a lot of small stuff, hopefully doesn't impact things too much in terms of binning efficiency and tracking the single copy genes. 
 
-
-
-## Binning from Kaiju Contigs
-
-### Subset contigs and Create Contigs DB 
-
-First subset the full coassembly for just contigs classified as eukaryotic based on Kaiju. This can be done with `seqtk`: `seqtk subseq ../coassembly_scaffolds.fasta eukaryotic-contigs.txt > coassembly_kaiju_euk.fasta`. Then use this new subset assembly to create a contigs database 
+Then merge with `anvi-merge */PROFILE.db -o SAMPLES-MERGED -c contigs.db --enforce-hierarchical-clustering`. Will have to enforce the hierarchical clustering because the split size of 25,000 is just above the default split size of 20,000. But should be fine without allocating to a really high memory node. 
 
 ### Import Kaiju classifications 
 
 Need to re-do the Kaiju classifications based on the gene calls made from the Anvi'o contigs DB. `anvi-get-sequences-for-gene-calls -c CONTIGS.db -o gene_calls.fa`. Get Kaiju classifications and import as described above. 
 
-### Map to subset Kaiju assembly 
+Taxonomy breakdown from these contigs: 
 
-`kaiju-mapping.sub` job to map each sample to the subset coassembly of eukaryotic contigs. 
+```
+   2931  Apicomplexa
+   9090  Ascomycota
+   8627  Bacillariophyta
+   4877  Basidiomycota
+    256  Blastocladiomycota
+     13  Cercozoa
+  16140  Chlorophyta
+   1574  Chytridiomycota
+   2838  Ciliophora
+    845  Cryptomycota
+   1109  Discosea
+    663  Endomyxa
+   7385  Euglenozoa
+   2864  Evosea
+    350  Foraminifera
+     89  Fornicata
+    601  Haptista
+    692  Heterolobosea
+      5  Imbricatea
+    238  Microsporidia
+   1953  Mucoromycota
+   8254  NA
+      1  Olpidiomycota
+    288  Parabasalia
+    247  Perkinsozoa
+    110  Preaxostyla
+    780  Rhodophyta
+     15  Tubulinea
+    941  Zoopagomycota
+```
+
+### View interactively on a server through SSH tunnel
+
+Follow [this tutorial](http://merenlab.org/2015/11/28/visualizing-from-a-server/) for running an SSH tunnel through the server to get anvi-interactive to work on your local host from the results on the server. 
+
+ssh -L 8080:localhost:8080 me@blah.edu
+
+# Overall results
+
+When mapping and binning from coassembly contigs classified as eukaryotic sequences, and then overlaying with HMM profiles from the BUSCO eukaryotic and chlorophyta collections, a somewhat expected result happens. For a lot of contigs that cluster together by coverage, the completion is low and redundancy is high. Especially for things that have a higher count of chlorophyta markers, the completion will be 40% and the redundancy is 80%. Additionally, the mapping is quite high in sample 3 and reported SNVs from anvi'o (still uncertain how they are reporting that) are also very high. I'm thinking whatever are the eukaryotic sequences are either really abundant and/or exhibit a lot of strain variation and are resulting in fragmented assemblies in the coassembly. Which I was taking the easy way of going through the anvi'o steps with the coassembly, because it's easier to start with. So I will repeat everything for the 3 individual assemblies with these steps: 
+
+1. Run kaiju on each individual assembly
+2. Subset each assembly based on the eukaryotic sequences
+3. Map to each subsetted assembly from all the samples to get differential coverage information
+4. Go through the Anvi'o steps. This time don't add the taxonomy information back in because turns out that wasn't really helpful. When have the coverage information with the HMM count distribution, that's better to show stats of the contigs. Whereas taxonomy colors just made things confusing and I couldn't tell how to change the taxonomy levels and it showed it at the lowest level of classification (species/strain) and was very unhelpful. 
+
 
