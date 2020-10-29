@@ -21,7 +21,7 @@ awk -F "\t" '{print $2"\t"$8}' $name/$name-kaiju-names.out | grep Eukaryota > $n
 
 awk -F "\t" '{print $2}' $name/$name-eukaryotic-contig-classification-table.txt | awk -F ';' '{print $2}' | sort | uniq -c > $name/$name-eukaryotic-contigs-counts.txt
 
-awk '{print $1}' $name/$name-eukaryotic-contigs-counts.txt > $name/$name-eukaryotic-contigs-list.txt
+awk '{print $1}' $name/$name-eukaryotic-contig-classification-table.txt > $name/$name-eukaryotic-contigs-list.txt
 
 ~/bin/seqtk subseq $name-assembly-contigs.fasta $name/$name-eukaryotic-contigs-list.txt > $name/$name-kaiju-eukaryotic-contigs.fasta
 
