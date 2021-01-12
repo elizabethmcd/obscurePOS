@@ -2,7 +2,7 @@
 # eukrep bowtie2 mapping submit queue
 ##############################
 
-executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/eukrep-mapping-queue-coassembly.sh
+executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/bowtie2-eukrep-assembly.sh
 
 request_cpus = 8
 request_memory = 50GB

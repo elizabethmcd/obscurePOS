@@ -5,7 +5,7 @@
 universe = vanilla
 executable = /home/GLBRCORG/emcdaniel/obscurePOS/executables/kaiju-anvio-run-hmms.sh
 
-request_cpus = 6
+request_cpus = 10
 request_memory = 50GB
 
 output = /home/GLBRCORG/emcdaniel/obscurePOS/outs/$(Cluster)_$(Process)_anvi-hmms.out

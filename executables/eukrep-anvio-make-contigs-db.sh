@@ -11,7 +11,7 @@ cd /home/GLBRCORG/emcdaniel/obscurePOS/metagenomes/assemblies/coassembly/eukrep_
 
 # run anvi-make-contigs-db
 
-anvi-gen-contigs-database -f coassembly-euk.fasta -o contigs.db -n "eukrep_coassembly_contigs" --skip-gene-calling
+anvi-gen-contigs-database -f coassembly-euk.fasta -o contigs.db -n "eukrep_coassembly_contigs"
 
 # exit environment
 conda deactivate
