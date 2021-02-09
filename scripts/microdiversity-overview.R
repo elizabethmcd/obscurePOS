@@ -16,7 +16,12 @@ sample_codes_table <- left_join(metadata_table, diversity_table) %>% drop_na()
 diversity_samples <- sample_codes_table %>% select(code, sample1_diversity, sample2_diversity, sample3_diversity)
 colnames(diversity_samples) <- c("code", "2015-07-16", "2015-07-24", "2015-08-06")
 
+# CAP and related lineages
+cap <- diversity_samples %>% filter(code == 'CAPIA' | code == 'CAPIIB' | code == 'CAPIIC' | code == 'DECH1' | code == 'THAU1' | code == 'SULF1')
+
 diversity.melted <- melt(diversity_samples, id.vars="code")
+cap.melted <- melt(cap, id.vars="code")
+colnames(cap.melted) <- c("code", "date", "diversity")
 colnames(diversity.melted) <- c("code", "date", "diversity")
 names <- metadata_table %>% select(code, highest_classf)
 melted.names <- left_join(diversity.melted, names)
@@ -27,7 +32,14 @@ melted.names$highest_classf <- gsub("Deltaproteobacteria", "Proteobacteria", mel
 
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 diversity <- melted.names %>% ggplot(aes(x=factor(date), y=diversity, group=code, color=code)) + geom_point() + geom_line() + scale_fill_manual(values=cbPalette) + scale_y_continuous(limits=c(0, .01), expand=c(0,0)) + theme_bw()
+
+cap_diversity <- cap.melted %>% ggplot(aes(x=factor(date), y=diversity, group=code, color=code)) + geom_point() + geom_line() + scale_y_continuous(limits=c(0, .01), expand=c(0,0)) + theme_bw()
+
+cap_diversity
+
 ggsave("figs/nucleotide-diversity.png", diversity, width=15, height=10, units=c("cm"))
+
+ggsave("figs/cap-diversity.png", cap_diversity, width=15, height=10, units=c("cm"))
 # covg for all genomes
 covg <- read.delim("results/strains/covg_results/POS-all-samples-covg-diversity.txt", sep="\t")
 covg$bin <- gsub(".fa", "", covg$bin)
