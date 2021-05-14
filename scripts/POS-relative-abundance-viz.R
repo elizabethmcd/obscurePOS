@@ -22,8 +22,14 @@ pos_abundance <- pos_names %>%
   select(code, phylum, `abund_2015-07-16`, `abund_2015-07-24`, `abund_2015-08-06`)
 pos_abundance$average <- (pos_abundance$`abund_2015-07-16` + pos_abundance$`abund_2015-07-24` + pos_abundance$`abund_2015-08-06`) / 3
 
+# Get only Accumulibacter genomes
+accumulibacter <- pos_names %>% filter(highest_classf== "Accumulibacter")
+
 # plot
 pos_abundance %>% ggplot(aes(x=reorder(code, -average), y=average, fill=phylum)) + geom_col() + theme_classic() + scale_fill_brewer(palette="Paired")
+
+# Accumulibacter plot
+accumulibacter %>% ggplot(aes(x=reorder(code, -avg), y=avg)) + geom_col() + theme_classic()
 
 # write table
 pos_table$avg_abundance <- (pos_table$`abund_2015-07-16` + pos_table$`abund_2015-07-24` + pos_table$`abund_2015-08-06`) / 3
@@ -42,6 +48,9 @@ top30_pos %>% ggplot(aes(x=reorder(code, -avg), y=avg, fill=highest_classf)) + g
 pos_counts <- pos_table %>% select(code, `abund_2015-07-16`, `abund_2015-07-24`, `abund_2015-08-06`)
 pos_melt <- melt(pos_counts, id.vars="code", variable="date")
 
+# accumulibacter melted
+accumulibacter_melted <- pos_melt %>% filter(code == 'CAPIA' | code == 'CAPIIA' | code == "CAPIIF" | code == "CAPIID" | code == 'CAPIIB' | code == 'CAPIIC')
+
 top_10 <- pos_table %>% 
   select(code, avg_abundance) %>% 
   arrange(desc(avg_abundance)) %>% 
@@ -53,9 +62,12 @@ top_ts <- pos_melt %>% filter(code %in% top_10)
 top_heatmap <- ggplot(top_ts, aes(x=code, y=fct_rev(date), fill=value)) + geom_tile(color="white") + scale_fill_viridis(option="magma", alpha=1, begin=0, end=1, direction=-1) + theme(axis.text.x= element_text(angle=85, hjust=1))
 top_heatmap
 
+acc_dynamics <- ggplot(accumulibacter_melted, aes(x=code, y=fct_rev(date), fill=value)) + geom_tile(color="white") + scale_fill_viridis(option="viridis", alpha=1, begin=0, end=1, direction=-1) + theme(axis.text.x= element_text(angle=85, hjust=1))
+
 # save raw figures
 
 ggsave(plot=avg_abundance, filename="figs/POS-average-abundance-bars.png", units=c("cm"), width=20, height=9)
 ggsave(plot=top_heatmap, filename="figs/POS-top10-heatmap.png", units=c("cm"), width=14, height=4)
+ggsave(plot=acc_dynamics, filename="figs/POS-acc-dynamics-abundance.png", units=c("cm"), width=14, height=5)
 
 

@@ -1,3 +1,5 @@
 # Genome-Resolved Metagenomics of Photosynthetic Feast-Famine Reactors 
 
-This repository contains code and workflows for genome-resolved metagenomic analysis of 3 samples taken from an EBPR reactor in 2015 operating photosynthetically.
+This repository contains code and workflows for genome-resolved metagenomics of a photosynthetically operated bioreactor simulating enhanced biological phosphorus removal. Raw metagenomic data and all 86 assembled MAGs are available on NCBI at [Bioproject PRJNA704939](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA704939). The _Microbiology Resource Announcements_ publication describing the study and dataset is published as: 
+
+*McDaniel E.A.*, Wever R., Oyserman B.O., Noguera D.R., McMahon K.D. *Genome-Resolved Metagenomics of a Photosynthetic Bioreactor Performing Biological Nutrient Removal.* May 2021. DOI: 10.1128/MRA.00244-21 [publication](https://mra.asm.org/content/10/18/e00244-21)
