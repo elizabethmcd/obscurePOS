@@ -57,6 +57,21 @@ coverm genome \
     --min-read-percent-identity 0.95 \
     --min-covered-fraction 0 \
     -x fasta -t 5 &> POS_coverage_calcs.txt
+    
+# with input bam files
+
+coverm genome \
+    --reference all-flanking-historical-acc-genomes.fasta \
+    -s "~" \
+    -m relative_abundance \
+    --bam-files *.sorted.bam \
+    --genome-fasta-directory ref_genomes/*.fa
+    --min-read-aligned-percent 0.75 \
+    --min-read-percent-identity 0.95 \
+    --min-covered-fraction 0 \
+    -x fasta -t 5 &> log.txt
+
+coverm genome -m relative_abundance --bam-files *.sorted.bam --genome-fasta-directory ../../genomes/ --min-read-aligned-percent 0.75 --min-read-percent-identity 0.95 --min-covered-fraction 0 -t 5
 
 
 # queue inStrain profiling

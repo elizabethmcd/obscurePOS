@@ -31,7 +31,22 @@ melted.names$highest_classf <- gsub("Alphaproteobacteria", "Proteobacteria", mel
 melted.names$highest_classf <- gsub("Deltaproteobacteria", "Proteobacteria", melted.names$highest_classf)
 
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-diversity <- melted.names %>% ggplot(aes(x=factor(date), y=diversity, group=code, color=code)) + geom_point() + geom_line() + scale_fill_manual(values=cbPalette) + scale_y_continuous(limits=c(0, .01), expand=c(0,0)) + theme_bw()
+diversity <- melted.names %>% ggplot(aes(x=factor(date), y=diversity, group=code, color=code)) + geom_point() + geom_line() + scale_fill_brewer(palette="Paired") + scale_y_continuous(limits=c(0, .01), expand=c(0,0)) + theme_bw() + theme(legend.position="bottom")
+diversity
+
+div_faceted <- melted.names %>% 
+  ggplot(aes(x=factor(date), y=diversity, group=code, color=code)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~ highest_classf) +
+  scale_fill_brewer(palette="Paired") +
+  theme_bw() +
+  scale_y_continuous(limits=c(0, .01)) +
+  xlab("Cycle Number") +
+  ylab("Nucleotide Diversity π") +
+  scale_x_discrete(labels=c("2015-07-16" = "Cycle 87", "2015-07-24" = "Cycle 103",
+                            "2015-08-06" = "Cycle 129"))
+
 
 cap_diversity <- cap.melted %>% ggplot(aes(x=factor(date), y=diversity, group=code, color=code)) + geom_point() + geom_line() + scale_y_continuous(limits=c(0, .01), expand=c(0,0)) + theme_bw()
 

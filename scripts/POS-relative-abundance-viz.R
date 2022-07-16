@@ -1,6 +1,7 @@
 library(tidyverse)
 library(reshape2)
 library(viridis)
+library(ggpubr)
 
 # POS Genomes stats 
 pos_stats <- read.csv("results/stats/POS-MAGs-final-stats.csv")
@@ -42,7 +43,46 @@ avg_abundance <- pos_names %>% ggplot(aes(x=reorder(code, -avg), y=avg, fill=hig
 top25_pos <- pos_names %>% arrange(desc(avg)) %>% top_n(25)
 top30_pos <- pos_names %>% arrange(desc(avg)) %>% top_n(30)
 top25_pos %>% ggplot(aes(x=reorder(code, -avg), y=avg, fill=highest_classf)) + geom_col() + theme_classic() + scale_fill_brewer(palette="Dark2") + theme(axis.text.x= element_text(angle=85, hjust=1))
-top30_pos %>% ggplot(aes(x=reorder(code, -avg), y=avg, fill=highest_classf)) + geom_col() + theme_classic() + scale_fill_brewer(palette="Dark2") + theme(axis.text.x= element_text(angle=85, hjust=1))
+top30_pos %>% ggplot(aes(x=reorder(code, -avg), y=avg, fill=highest_classf)) + geom_col() + theme_classic() + scale_fill_brewer(palette="Paired") + theme(axis.text.x= element_text(angle=85, hjust=1))
+
+rel_abund_table <- pos_names %>% 
+  mutate(`Cycle 87` = abund_2015.07.16) %>% 
+  mutate(`Cycle 103` = abund_2015.07.24) %>% 
+  mutate(`Cycle 129` = abund_2015.08.06) %>% 
+  select(code, highest_classf, `Cycle 87`, `Cycle 103`, `Cycle 129`) %>%
+  pivot_longer(-c(code, highest_classf), names_to="sample", values_to="relative_abundance")
+
+rel_abund_table$sample <- factor(rel_abund_table$sample, levels=c("Cycle 87", "Cycle 103", "Cycle 129"))
+
+rel_abund_barplot <- rel_abund_table %>% 
+  ggplot(aes(x=factor(sample), y=relative_abundance, fill=highest_classf)) +
+  geom_bar(stat="identity", color="black") +
+  scale_fill_brewer(palette = "Paired") +
+  ylab("Relative Abundance") +
+  xlab("Cycle Number") +
+  theme_bw() +
+  scale_y_continuous(expand=c(0,0), breaks=seq(0, 70, 10))
+
+top_dynamics_heatmap <- melted.names %>% 
+  select(code) %>% 
+  unique() %>% 
+  left_join(pos_names) %>% 
+  mutate(`Cycle 87` = abund_2015.07.16) %>% 
+  mutate(`Cycle 103` = abund_2015.07.24) %>% 
+  mutate(`Cycle 129` = abund_2015.08.06) %>% 
+  select(code, highest_classf, `Cycle 87`, `Cycle 103`, `Cycle 129`) %>%
+  pivot_longer(-c(code, highest_classf), names_to="sample", values_to="relative_abundance") %>% 
+  ggplot(aes(x=fct_rev(sample), y=fct_rev(code), fill=relative_abundance)) +
+  geom_tile(color="white") +
+  facet_wrap(~ highest_classf, scales="free_y") + 
+  scale_fill_viridis(option="magma", alpha=1, begin=0, end=1, direction=-1) +
+  scale_x_discrete(expand=c(0,0)) +
+  theme(legend.position="bottom")
+
+top_dynamics_heatmap
+
+
+ggplot(top_ts, aes(x=code, y=fct_rev(date), fill=value)) + geom_tile(color="white") + scale_fill_viridis(option="magma", alpha=1, begin=0, end=1, direction=-1) + theme(axis.text.x= element_text(angle=85, hjust=1))
 
 # melted dataset for heatmap of specific taxa
 pos_counts <- pos_table %>% select(code, `abund_2015-07-16`, `abund_2015-07-24`, `abund_2015-08-06`)
@@ -71,3 +111,12 @@ ggsave(plot=top_heatmap, filename="figs/POS-top10-heatmap.png", units=c("cm"), w
 ggsave(plot=acc_dynamics, filename="figs/POS-acc-dynamics-abundance.png", units=c("cm"), width=14, height=5)
 
 
+
+# figure grids 
+
+grid1 <- ggarrange(top_dynamics_heatmap, diversity, ncol=2, widths=c(1.5,2))
+
+combined_grid <- ggarrange(rel_abund_barplot, grid1, ncol=1)
+combined_grid
+
+ggarrange(rel_abund_barplot, div_faceted, ncol=1, heights=c(2,1.5), labels=c("A", "B"))

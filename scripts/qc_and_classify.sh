@@ -15,9 +15,8 @@
 
 mkdir checkm_stats
 checkm lineage_wf -x .fa all_bins/ checkm_stats
-cd checkm_stats
-checkm qa lineage.ms -o 2 -f checkm.out --tab_table
-awk '{print $1"\t"$2"\t"$7"\t"$8"\t"$10"\t"$13"\t"$20}' checkm.out > checkm_stats.tsv
+checkm qa checkm_stats/lineage.ms checkm_stats/ -o 2 -f checkm_stats/checkm.out --tab_table
+awk -F "\t" '{print $1"\t"$2"\t"$6"\t"$7"\t"$9"\t"$12"\t"$19}' checkm.out  > checkm_stats.tsv
 
 # change headers to
 # bin_id    lineage	completeness	contamination	genome_size	contigs	gc	ORFs
